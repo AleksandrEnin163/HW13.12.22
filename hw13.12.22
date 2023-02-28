@@ -1,0 +1,62 @@
+1)function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const pivotIndex = Math.floor(Math.random() * arr.length);
+  const pivot = arr[pivotIndex];
+  const left = [];
+  const right = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i === pivotIndex) {
+      continue;
+    }
+
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+2)function longestCommonPrefix(arr) {
+  if (arr.length === 0) {
+    return '';
+  }
+
+  return longestCommonPrefixHelper(arr, 0, arr.length - 1);
+}
+
+function longestCommonPrefixHelper(arr, left, right) {
+  if (left === right) {
+    return arr[left];
+  }
+
+  const middle = Math.floor((left + right) / 2);
+  const leftPrefix = longestCommonPrefixHelper(arr, left, middle);
+  const rightPrefix = longestCommonPrefixHelper(arr, middle + 1, right);
+
+  return commonPrefix(leftPrefix, rightPrefix);
+}
+
+function commonPrefix(str1, str2) {
+  let prefix = '';
+  let i = 0;
+  
+  while (i < str1.length && i < str2.length) {
+    if (str1[i] === str2[i]) {
+      prefix += str1[i];
+    } else {
+      break;
+    }
+
+    i++;
+  }
+
+  return prefix;
+}
+
